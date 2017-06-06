@@ -5,7 +5,7 @@ import static spark.Spark.*;
 
 public class Main {
     public static void main(String[] args) {
-        port(4567);     //setting default listner port on which our server runs
+        port(getHerokuAssignedPort());     //setting default listner port on which our server runs
         //sample get request routing with variable count
         get("/getRandam/:count", (req, res) -> {
             int count = Integer.parseInt(req.params(":count"));
@@ -28,5 +28,12 @@ public class Main {
     public static String json(Object obj) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();     // objectMapper class contains methods for converting
         return objectMapper.writeValueAsString(obj);// this covert content of object to json string
+    }
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 }
