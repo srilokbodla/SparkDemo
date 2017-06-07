@@ -5,9 +5,10 @@ import static spark.Spark.*;
 
 public class Main {
     public static void main(String[] args) {
+
         port(getHerokuAssignedPort());     //setting default listner port on which our server runs
         //sample get request routing with variable count
-        get("/getRandam/:count", (req, res) -> {
+        get("/getRandom/:count", (req, res) -> {
             int count = Integer.parseInt(req.params(":count"));
             return json(random(count));
         });
