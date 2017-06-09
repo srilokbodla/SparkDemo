@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -23,6 +22,8 @@
     </dependencies>
     <build>
         <plugins>
+            <!--plugin generates scripts for starting java applications.Dependencies are placed in generated maven repository.
+            Dependencies are added to classpath in generated bin scripts-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
@@ -31,7 +32,9 @@
                     <assembleDirectory>target</assembleDirectory>
                     <programs>
                         <program>
+                            <!--'mainclass' value specifies on which class execution to be started-->
                             <mainClass>Main</mainClass>
+                            <!--'name' value specifies path in generated bin scripts-->
                             <name>internal</name>
                         </program>
                     </programs>
@@ -45,10 +48,12 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--Compiler Plugin is used to compile the sources of project-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
+                <!--changing default jdk version to required vesion-->
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
