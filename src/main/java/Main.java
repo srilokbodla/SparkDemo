@@ -8,8 +8,9 @@ public class Main {
 
         port(getHerokuAssignedPort());     //setting default listner port on which our server runs
         //sample get request routing with variable count
-        get("/getRandom/:count", (req, res) -> {
-            int count = Integer.parseInt(req.params(":count"));
+        get("/getRandom/", (req, res) -> {
+            //res.header("Access-Control-Allow-Origin", "*"); //important, otherwise its not working
+            int count = Integer.parseInt(req.queryParams("count"));
             return json(random(count));
         });
         /*req is a request object contains default html request object res is object that we manipulate and send to one who send request
