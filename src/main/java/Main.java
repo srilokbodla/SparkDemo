@@ -9,7 +9,11 @@ public class Main {
         port(getHerokuAssignedPort());     //setting default listner port on which our server runs
         //sample get request routing with variable count
         get("/getRandom/", (req, res) -> {
-            //res.header("Access-Control-Allow-Origin", "*"); //important, otherwise its not working
+            String acrHeaders = req.headers("Access-Control-Request-Headers");
+            String acrMethod = req.headers("Access-Control-Request-Method");
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", acrHeaders);
+            res.header("Access-Control-Allow-Methods", acrMethod);
             int count = Integer.parseInt(req.queryParams("count"));
             return json(random(count));
         });
